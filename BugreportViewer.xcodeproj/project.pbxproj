@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45221B2F5E8400FABC6D /* AppDelegate.m */; };
 		D22C45251B2F5E8400FABC6D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45241B2F5E8400FABC6D /* main.m */; };
-		D22C45281B2F5E8400FABC6D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45271B2F5E8400FABC6D /* ViewController.m */; };
+		D22C45281B2F5E8400FABC6D /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45271B2F5E8400FABC6D /* MainWindowController.m */; };
 		D22C452A1B2F5E8400FABC6D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D22C45291B2F5E8400FABC6D /* Images.xcassets */; };
-		D22C452D1B2F5E8400FABC6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D22C452B1B2F5E8400FABC6D /* Main.storyboard */; };
 		D22C45391B2F5E8400FABC6D /* BugreportViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45381B2F5E8400FABC6D /* BugreportViewerTests.m */; };
+		D2ABD6531B4883CF00653319 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2ABD6521B4883CF00653319 /* MainMenu.xib */; };
+		D2ABD6561B489EB900653319 /* SidebarTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ABD6551B489EB900653319 /* SidebarTableCellView.m */; };
+		D2ABD6591B49831A00653319 /* ADBController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ABD6581B49831A00653319 /* ADBController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +33,18 @@
 		D22C45211B2F5E8400FABC6D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D22C45221B2F5E8400FABC6D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D22C45241B2F5E8400FABC6D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D22C45261B2F5E8400FABC6D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D22C45271B2F5E8400FABC6D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D22C45261B2F5E8400FABC6D /* MainWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		D22C45271B2F5E8400FABC6D /* MainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		D22C45291B2F5E8400FABC6D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D22C452C1B2F5E8400FABC6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D22C45321B2F5E8400FABC6D /* BugreportViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BugreportViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22C45371B2F5E8400FABC6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D22C45381B2F5E8400FABC6D /* BugreportViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BugreportViewerTests.m; sourceTree = "<group>"; };
+		D2ABD6521B4883CF00653319 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		D2ABD6541B489EB900653319 /* SidebarTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarTableCellView.h; sourceTree = "<group>"; };
+		D2ABD6551B489EB900653319 /* SidebarTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarTableCellView.m; sourceTree = "<group>"; };
+		D2ABD6571B49831A00653319 /* ADBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADBController.h; path = adb/ADBController.h; sourceTree = "<group>"; };
+		D2ABD6581B49831A00653319 /* ADBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBController.m; path = adb/ADBController.m; sourceTree = "<group>"; };
+		D2ABD65B1B498F5300653319 /* ADBDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADBDelegate.h; path = adb/ADBDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +68,10 @@
 		D22C45131B2F5E8400FABC6D = {
 			isa = PBXGroup;
 			children = (
+				D2ABD65B1B498F5300653319 /* ADBDelegate.h */,
+				D2ABD6571B49831A00653319 /* ADBController.h */,
+				D2ABD6581B49831A00653319 /* ADBController.m */,
+				D2ABD6521B4883CF00653319 /* MainMenu.xib */,
 				D22C451E1B2F5E8400FABC6D /* BugreportViewer */,
 				D22C45351B2F5E8400FABC6D /* BugreportViewerTests */,
 				D22C451D1B2F5E8400FABC6D /* Products */,
@@ -81,11 +92,12 @@
 			children = (
 				D22C45211B2F5E8400FABC6D /* AppDelegate.h */,
 				D22C45221B2F5E8400FABC6D /* AppDelegate.m */,
-				D22C45261B2F5E8400FABC6D /* ViewController.h */,
-				D22C45271B2F5E8400FABC6D /* ViewController.m */,
+				D22C45261B2F5E8400FABC6D /* MainWindowController.h */,
+				D22C45271B2F5E8400FABC6D /* MainWindowController.m */,
 				D22C45291B2F5E8400FABC6D /* Images.xcassets */,
-				D22C452B1B2F5E8400FABC6D /* Main.storyboard */,
 				D22C451F1B2F5E8400FABC6D /* Supporting Files */,
+				D2ABD6541B489EB900653319 /* SidebarTableCellView.h */,
+				D2ABD6551B489EB900653319 /* SidebarTableCellView.m */,
 			);
 			path = BugreportViewer;
 			sourceTree = "<group>";
@@ -197,7 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D22C452A1B2F5E8400FABC6D /* Images.xcassets in Resources */,
-				D22C452D1B2F5E8400FABC6D /* Main.storyboard in Resources */,
+				D2ABD6531B4883CF00653319 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,9 +227,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D22C45281B2F5E8400FABC6D /* ViewController.m in Sources */,
+				D22C45281B2F5E8400FABC6D /* MainWindowController.m in Sources */,
 				D22C45251B2F5E8400FABC6D /* main.m in Sources */,
+				D2ABD6561B489EB900653319 /* SidebarTableCellView.m in Sources */,
 				D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */,
+				D2ABD6591B49831A00653319 /* ADBController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,17 +252,6 @@
 			targetProxy = D22C45331B2F5E8400FABC6D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		D22C452B1B2F5E8400FABC6D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D22C452C1B2F5E8400FABC6D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D22C453A1B2F5E8400FABC6D /* Debug */ = {
@@ -337,6 +340,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = BugreportViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -348,6 +352,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = BugreportViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -407,6 +412,7 @@
 				D22C453E1B2F5E8400FABC6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D22C453F1B2F5E8400FABC6D /* Build configuration list for PBXNativeTarget "BugreportViewerTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +421,7 @@
 				D22C45411B2F5E8400FABC6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
