@@ -10,8 +10,10 @@
 
 typedef NS_ENUM(NSInteger, ADBError) {
     ADBErrorSocketNotCreated,
+    ADBErrorCannotConnect,
     ADBErrorUnknownHost,
-    ADBErrorNotFound
+    ADBErrorNotFound,
+    ADBErrorServerStopped
 };
 
 @protocol ADBDelegate <NSObject>

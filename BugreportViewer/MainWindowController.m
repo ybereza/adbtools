@@ -16,6 +16,13 @@
 - (void)initADBController {
     
     mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/ybereza/android/sdk" andDelegate:self];
+    if ([mADBController launchADBServer]) {
+        NSLog(@"Launched adb server");
+        if ([mADBController connect]) {
+            NSLog(@"connected to adb server");
+        }
+    }
+    [mADBController close];
 }
 
 - (void)viewDidLoad {
@@ -156,11 +163,11 @@
 #pragma mark ADBDelegate
 
 - (void)onDeviceListReceived:(NSArray*) devices {
-    
+    NSLog(@"onDeviceListReceived %@", devices);
 }
 
 - (void)onADBError:(ADBError) error {
-    
+    NSLog(@"onADBError %ld", error);
 }
 
 @end

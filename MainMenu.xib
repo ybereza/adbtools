@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
@@ -661,7 +662,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="158" width="800" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="eTO-c3-hz4">
                 <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -679,7 +680,7 @@
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="liM-65-am7" id="dsN-SE-EPd">
+                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="liM-65-am7" id="dsN-SE-EPd">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -820,7 +821,7 @@
                     <constraint firstAttribute="trailing" secondItem="dIz-7m-Id2" secondAttribute="trailing" id="qz7-Mo-6vH"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="F482D9B2-158A-4171-96E6-59115E0C471D" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="gT4-Zv-afO">
+            <toolbar key="toolbar" implicitIdentifier="F482D9B2-158A-4171-96E6-59115E0C471D" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="gT4-Zv-afO">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="mOn-Nw-jeQ"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="EdB-c8-wHS"/>
@@ -829,7 +830,7 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="5O4-Zm-lUf"/>
                     <toolbarItem implicitItemIdentifier="ED81A4B8-3B76-4297-9880-3BB5DDD69CA7" label="Device selection" paletteLabel="Device selection" id="cQ1-PJ-hzJ">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="300" height="26"/>
+                        <size key="minSize" width="99" height="26"/>
                         <size key="maxSize" width="300" height="26"/>
                         <comboBox key="view" verticalHuggingPriority="750" id="c7z-1J-9YA">
                             <rect key="frame" x="0.0" y="0.0" width="99" height="26"/>
@@ -846,15 +847,19 @@
                             </comboBoxCell>
                         </comboBox>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="30AE9633-0749-48B4-98FF-E6A34A5BBE24" label="Open" paletteLabel="Open" tag="-1" image="NSFolder" id="98V-4M-MqH"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="FVs-Ni-6xs"/>
+                    <toolbarItem implicitItemIdentifier="EE524E65-DE79-48DC-9D71-93EDF08F0250" label="Take bugreport" paletteLabel="Take bugreport" tag="-1" image="NSRefreshFreestandingTemplate" id="bfI-xf-195"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="mOn-Nw-jeQ"/>
-                    <toolbarItem reference="EdB-c8-wHS"/>
+                    <toolbarItem reference="98V-4M-MqH"/>
+                    <toolbarItem reference="FVs-Ni-6xs"/>
+                    <toolbarItem reference="bfI-xf-195"/>
                     <toolbarItem reference="5O4-Zm-lUf"/>
                     <toolbarItem reference="cQ1-PJ-hzJ"/>
                 </defaultToolbarItems>
             </toolbar>
-            <point key="canvasLocation" x="166" y="480"/>
+            <point key="canvasLocation" x="56" y="489"/>
         </window>
         <viewController id="bSD-en-s3y" userLabel="MainController" customClass="MainWindowController">
             <connections>
@@ -866,5 +871,7 @@
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSFolder" width="32" height="32"/>
+        <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
     </resources>
 </document>

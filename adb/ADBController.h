@@ -13,12 +13,16 @@
 {
 @private
     int mAdbSocket;
+    dispatch_queue_t mQueue;
 }
 
 @property NSString* adbPath;
 @property id<ADBDelegate> delegate;
 
 - (instancetype)initWithPathToSDK:(NSString *)path andDelegate:(id<ADBDelegate>) delegate;
+
+- (BOOL)launchADBServer;
 - (BOOL)connect;
+- (void)close;
 
 @end
