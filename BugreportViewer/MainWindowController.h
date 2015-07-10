@@ -12,18 +12,20 @@
 
 @class ADBController;
 
-@interface MainWindowController : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate, ADBDelegate>
+@interface MainWindowController : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate, ADBDelegate, NSComboBoxDataSource>
 {
 @private
     NSArray* mTopLevelItems;
     NSMutableDictionary* mChildrenDictionary;
     IBOutlet NSOutlineView *mOutlineView;
+    IBOutlet NSComboBox* mDeviceList;
     ADBController* mADBController;
 }
 
 - (IBAction)createNewWindow:(NSMenuItem *)sender;
 
 @property (assign) IBOutlet NSWindow *window;
+@property NSArray* connectedDevices;
 
 @end
 

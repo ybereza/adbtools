@@ -15,18 +15,14 @@
 
 - (void)initADBController {
     
-    mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/ybereza/android/sdk" andDelegate:self];
-    if ([mADBController launchADBServer]) {
-        NSLog(@"Launched adb server");
-        if ([mADBController connect]) {
-            NSLog(@"connected to adb server");
-        }
-    }
-    [mADBController close];
+    mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/y.bereza/android/sdk" andDelegate:self];
+    [mADBController getDevicesListAsync];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self->mDeviceList setUsesDataSource:YES];
+    [self->mDeviceList setDataSource:self];    
     [self initADBController];
 }
 
@@ -163,11 +159,27 @@
 #pragma mark ADBDelegate
 
 - (void)onDeviceListReceived:(NSArray*) devices {
+    self.connectedDevices = devices;
     NSLog(@"onDeviceListReceived %@", devices);
+    [self->mDeviceList reloadData];
+    if ([self.connectedDevices count] == 1) {
+        [self->mDeviceList selectItemAtIndex:0];
+    }
 }
 
-- (void)onADBError:(ADBError) error {
-    NSLog(@"onADBError %ld", error);
+- (void)onADBError:(NSError*) error {
+    NSLog(@"onADBError %@", error);
+}
+
+#pragma mark -
+#pragma mark NSComboBoxDataSource
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
+    return self.connectedDevices != nil ? [self.connectedDevices count] : 0;
+}
+
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
+    return [self.connectedDevices objectAtIndex:index];
 }
 
 @end

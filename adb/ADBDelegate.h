@@ -13,12 +13,16 @@ typedef NS_ENUM(NSInteger, ADBError) {
     ADBErrorCannotConnect,
     ADBErrorUnknownHost,
     ADBErrorNotFound,
-    ADBErrorServerStopped
+    ADBErrorServerStopped,
+    ADBErrorSendingData,
+    ADBErrorReadingData,
+    ADBErrorIncorrectResponse
 };
 
 @protocol ADBDelegate <NSObject>
 
 - (void)onDeviceListReceived:(NSArray*) devices;
-- (void)onADBError:(ADBError) error;
+//error code will be ADBError
+- (void)onADBError:(NSError*) error;
 
 @end

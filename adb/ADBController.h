@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ADBDelegate.h"
 
+typedef void (^asyncCommandResult)(NSString* result, NSError* error);
+
 @interface ADBController : NSObject
 {
 @private
@@ -19,10 +21,8 @@
 @property NSString* adbPath;
 @property id<ADBDelegate> delegate;
 
-- (instancetype)initWithPathToSDK:(NSString *)path andDelegate:(id<ADBDelegate>) delegate;
-
-- (BOOL)launchADBServer;
-- (BOOL)connect;
-- (void)close;
+- (instancetype)initWithPathToSDK:(NSString*)path andDelegate:(id<ADBDelegate>) delegate;
+- (void)executeCommand:(NSString *)command Async:(asyncCommandResult)result;
+- (void)getDevicesListAsync;
 
 @end
