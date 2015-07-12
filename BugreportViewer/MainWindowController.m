@@ -15,7 +15,7 @@
 
 - (void)initADBController {
     
-    mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/y.bereza/android/sdk" andDelegate:self];
+    mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/ybereza/android/sdk" andDelegate:self];
     [mADBController getDevicesListAsync];
 }
 

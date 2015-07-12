@@ -20,7 +20,7 @@ static const int kADB_SERVER_VERSION = 32;
 @property NSTask* mADBServerTask;
 
 //error code will be ADBError from ADBDelegate.h
-- (nullable NSString*)sendCommand:(NSString *)command failedWithError:(NSError**)error;
+- (nullable NSString*)executeCommand:(NSString *)command failedWithError:(NSError**)error;
 - (BOOL)connect;
 - (BOOL)_connect;
 - (void)close;
@@ -71,7 +71,7 @@ static const int kADB_SERVER_VERSION = 32;
                                          code:ADBErrorCannotConnect userInfo:nil];
         }
         if (error == nil) {
-            data = [self sendCommand:command failedWithError:&error];
+            data = [self executeCommand:command failedWithError:&error];
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
             result(data, error);
@@ -79,93 +79,98 @@ static const int kADB_SERVER_VERSION = 32;
     });
 }
 
-- (nullable NSString*)sendCommand:(NSString *)command failedWithError:(NSError**)error {
+- (char*)readBytes:(NSUInteger)expected {
+    char* buffer = malloc(expected+1);
+    memset(buffer, 0, expected+1);
+    char* buffer_ptr = buffer;
+    NSUInteger readed = 0;
+    do {
+        expected -= readed;
+        buffer_ptr += readed;
+        readed = read(self->mAdbSocket, buffer_ptr, expected);
+    } while (readed > 0 && readed < expected);
+    
+    if (readed == -1) {
+        free(buffer);
+        return NULL;
+    }
+    return buffer;
+}
+
+- (NSString*)readString:(NSUInteger)expected faildWithError:(NSError**)error {
+    char* data = [self readBytes:expected];
+    if (data != NULL) {
+        NSString* res = [NSString stringWithUTF8String:data];
+        free(data);
+        return res;
+    }
+    *error = [NSError errorWithDomain:@"Can not read data from device"
+                                 code:ADBErrorReadingData userInfo:nil];
+    return nil;
+}
+
+- (BOOL)writeBytes:(const char*)data :(NSUInteger)size {
+    NSUInteger sent = 0;
+    do {
+        size -= sent;
+        data += sent;
+        sent = send(self->mAdbSocket, data, size, 0);
+    } while (sent > 0 && sent < size);
+    if (sent <= 0) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)sendCommand:(NSString*)command failedWithError:(NSError**)error {
+    NSString* commandLength = [NSString stringWithFormat:@"%04lx", [command length]];
+    if ([self writeBytes:[commandLength UTF8String] :[commandLength length]]
+        && [self writeBytes:[command UTF8String] :[command length]]) {
+
+        NSString* okay = [self readString:4 faildWithError:error];
+        if (okay != nil && *error == nil) {
+            if ([okay compare:@"OKAY"] != NSOrderedSame) {
+                *error = [NSError errorWithDomain:@"Can not send data to device"
+                                             code:ADBErrorSendingData userInfo:nil];
+            }
+        }
+    }
+    else {
+        *error = [NSError errorWithDomain:@"Can not send data to device"
+                                     code:ADBErrorSendingData userInfo:nil];
+    }
+}
+
+- (nullable NSString*)executeCommand:(NSString *)command failedWithError:(NSError**)error {
     if (![self connect]) {
         *error = [NSError errorWithDomain:@"Can not connect to adb"
                                      code:ADBErrorSocketNotCreated userInfo:nil];
         return nil;
     }
     
-    NSString* commandLength = [NSString stringWithFormat:@"%04lx", [command length]];
-    const char* data = [command UTF8String];
-    const char* len = [commandLength UTF8String];
-    size_t dataSize = strlen(len);
-    size_t sent = 0;
-    do {
-        dataSize -= sent;
-        len += sent;
-        sent = send(self->mAdbSocket, len, dataSize, 0);
-    } while (sent > 0 && sent < dataSize);
-    if (sent <= 0) {
-        *error = [NSError errorWithDomain:@"Can not send data to device"
-                                     code:ADBErrorSendingData userInfo:nil];
+    [self sendCommand:command failedWithError:error];
+    if (*error != nil) {
         [self close];
         return nil;
     }
     
-    dataSize = strlen(data);
-    sent = 0;
-    do {
-        dataSize -= sent;
-        data += sent;
-        sent = send(self->mAdbSocket, data, dataSize, 0);
-    } while (sent > 0 && sent < dataSize);
-    if (sent <= 0) {
-        *error = [NSError errorWithDomain:@"Can not send data to device"
-                                     code:ADBErrorSendingData userInfo:nil];
-        [self close];
-        return nil;
-    }
-    
-    char okaybuffer[5] = {0};
-    size_t readed = read(self->mAdbSocket, &okaybuffer, 4);
-    if (readed == -1) {
-        *error = [NSError errorWithDomain:@"Can not read data from device"
-                                     code:ADBErrorSendingData userInfo:nil];
-        [self close];
-        return nil;
-    }
-    if (memcmp(okaybuffer, "OKAY", 4)) {
-        *error = [NSError errorWithDomain:@"Can not read data from device"
-                                     code:ADBErrorIncorrectResponse userInfo:nil];
-        [self close];
-        return nil;
-    }
-    memset(&okaybuffer, 0, 5);
-    readed = read(self->mAdbSocket, &okaybuffer, 4);
-    if (readed == -1) {
-        *error = [NSError errorWithDomain:@"Can not read data from device"
+    char* responseSize = [self readBytes:4];
+    if (responseSize == NULL) {
+        *error = [NSError errorWithDomain:@"Can not read response size from device"
                                      code:ADBErrorReadingData userInfo:nil];
         [self close];
         return nil;
     }
-    okaybuffer[4] = 0;
     char* p;
-    unsigned long expectedBytes = strtoul(okaybuffer, &p, 16);
-    if (expectedBytes == 0) {
-        [self close];
-        return nil;
-    }
-    char* buffer = malloc(expectedBytes+1);
-    char* buffer_ptr = buffer;
-    memset(buffer, 0, expectedBytes+1);
-    readed = 0;
-    do {
-        expectedBytes -= readed;
-        buffer_ptr += readed;
-        readed = read(self->mAdbSocket, buffer_ptr, expectedBytes);
-    } while (readed > 0 && readed < expectedBytes);
+    unsigned long expectedBytes = strtoul(responseSize, &p, 16);
+    free(responseSize);
     
-    if (readed == -1) {
-        *error = [NSError errorWithDomain:@"Can not read data from device"
-                                     code:ADBErrorReadingData userInfo:nil];
-        [self close];
-        return nil;
+    NSString* response = nil;
+    if (expectedBytes > 0) {
+        response = [self readString:expectedBytes faildWithError:error];
     }
-    NSString* res = [NSString stringWithUTF8String:buffer];
-    free(buffer);
     [self close];
-    return res;
+    return response;
 }
 
 - (BOOL)connect {
@@ -216,7 +221,7 @@ static const int kADB_SERVER_VERSION = 32;
 
 - (BOOL)checkADBVersion:(int)adbServerVersion {
     NSError* error = nil;
-    NSString* data = [self sendCommand:@"host:version" failedWithError:&error];
+    NSString* data = [self executeCommand:@"host:version" failedWithError:&error];
     if (error != nil) {
         NSLog(@"Error geting adb version %@", error);
         return false;
