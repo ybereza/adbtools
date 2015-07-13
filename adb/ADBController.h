@@ -24,5 +24,6 @@ typedef void (^asyncCommandResult)(NSString* result, NSError* error);
 - (instancetype)initWithPathToSDK:(NSString*)path andDelegate:(id<ADBDelegate>) delegate;
 - (void)executeCommand:(NSString *)command Async:(asyncCommandResult)result;
 - (void)getDevicesListAsync;
+- (void)getLogcatAsync;
 
 @end

@@ -12,7 +12,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-static const int kDefaultPort = 5038;
+static const int kDefaultPort = 5037;
 static const int kADB_SERVER_VERSION = 32;
 
 @interface ADBController()
@@ -62,6 +62,17 @@ static const int kADB_SERVER_VERSION = 32;
     }];
 }
 
+- (void)getLogcatAsync {
+    [self executeShellCommand:@"shell:logcat -d" Async: ^(NSString* result, NSError* error){
+        if (error != nil && result == nil) {
+            [self.delegate onADBError:error];
+        }
+        else {
+            [self.delegate onLogcatReceived:result];
+        }
+    }];
+}
+
 - (void)executeCommand:(NSString *)command Async:(asyncCommandResult)result {
     dispatch_async(self->mQueue, ^{
         NSError* error = nil;
@@ -79,15 +90,50 @@ static const int kADB_SERVER_VERSION = 32;
     });
 }
 
-- (char*)readBytes:(NSUInteger)expected {
-    char* buffer = malloc(expected+1);
-    memset(buffer, 0, expected+1);
+- (void)executeShellCommand:(NSString*)command Async:(asyncCommandResult)result {
+    dispatch_async(self->mQueue, ^{
+        NSError* error = nil;
+        NSString* data = nil;
+        if (![self checkADBVersion:kADB_SERVER_VERSION]) {
+            error = [NSError errorWithDomain:@"Incorrect ADB server version"
+                                        code:ADBErrorCannotConnect userInfo:nil];
+        }
+        if (error == nil) {
+            if (![self connect]) {
+                error = [NSError errorWithDomain:@"Can not connect to adb"
+                                             code:ADBErrorSocketNotCreated userInfo:nil];
+            }
+            //we need to select transport and not to close connection
+            [self sendCommand:@"host:transport-any" failedWithError:&error];
+            if (error == nil) {
+                //now we can execute device shell command
+                [self sendCommand:command failedWithError:&error];
+                if (error == nil) {
+                    NSData* commandResult = [self readDataFailedWithError:&error];
+                    if ([commandResult length] > 0) {
+                        data = [[NSString alloc] initWithData:commandResult encoding:NSUTF8StringEncoding];
+                    }
+                }
+            }
+            [self close];
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            result(data, error);
+        });
+    });
+}
+
+- (char*)readBytes:(NSUInteger)expected :(NSUInteger*)totalReaded {
+    char* buffer = malloc(expected);
+    memset(buffer, 0, expected);
     char* buffer_ptr = buffer;
     NSUInteger readed = 0;
+    *totalReaded = 0;
     do {
         expected -= readed;
         buffer_ptr += readed;
         readed = read(self->mAdbSocket, buffer_ptr, expected);
+        *totalReaded += readed;
     } while (readed > 0 && readed < expected);
     
     if (readed == -1) {
@@ -98,15 +144,37 @@ static const int kADB_SERVER_VERSION = 32;
 }
 
 - (NSString*)readString:(NSUInteger)expected faildWithError:(NSError**)error {
-    char* data = [self readBytes:expected];
+    NSUInteger totalReaded = 0;
+    char* data = [self readBytes:expected :&totalReaded];
     if (data != NULL) {
-        NSString* res = [NSString stringWithUTF8String:data];
+        data[expected] = 0;
+        NSString* res = [[NSString alloc] initWithBytes:data length:totalReaded encoding:NSUTF8StringEncoding];
         free(data);
         return res;
     }
     *error = [NSError errorWithDomain:@"Can not read data from device"
                                  code:ADBErrorReadingData userInfo:nil];
     return nil;
+}
+
+- (NSData*)readDataFailedWithError:(NSError**)error {
+    const NSUInteger expected = 1024 * 1024; //how about 1mb
+    NSMutableData* result = [[NSMutableData alloc] init];
+    NSUInteger totalReaded;
+    do {
+        char* data = [self readBytes:expected :&totalReaded];
+        if (data != NULL) {
+            [result appendBytes:data length:totalReaded];
+            free(data);
+        }
+        else {
+            *error = [NSError errorWithDomain:@"Can not read data from device"
+                                         code:ADBErrorReadingData userInfo:nil];
+            return result;
+        }
+    } while (totalReaded > 0);
+    
+    return result;
 }
 
 - (BOOL)writeBytes:(const char*)data :(NSUInteger)size {
@@ -153,8 +221,8 @@ static const int kADB_SERVER_VERSION = 32;
         [self close];
         return nil;
     }
-    
-    char* responseSize = [self readBytes:4];
+    NSUInteger totalReaded = 0;
+    char* responseSize = [self readBytes:4 :&totalReaded];
     if (responseSize == NULL) {
         *error = [NSError errorWithDomain:@"Can not read response size from device"
                                      code:ADBErrorReadingData userInfo:nil];

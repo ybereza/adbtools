@@ -21,8 +21,9 @@ typedef NS_ENUM(NSInteger, ADBError) {
 
 @protocol ADBDelegate <NSObject>
 
-- (void)onDeviceListReceived:(NSArray*) devices;
+- (void)onDeviceListReceived:(NSArray*)devices;
+- (void)onLogcatReceived:(NSString*)logcat;
 //error code will be ADBError
-- (void)onADBError:(NSError*) error;
+- (void)onADBError:(NSError*)error;
 
 @end

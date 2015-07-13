@@ -15,7 +15,7 @@
 
 - (void)initADBController {
     
-    mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/ybereza/android/sdk" andDelegate:self];
+    mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/y.bereza/android/sdk" andDelegate:self];
     [mADBController getDevicesListAsync];
 }
 
@@ -155,6 +155,10 @@
     NSLog(@"Create new window");
 }
 
+- (IBAction)onRefreshButtonClick:(id)sender {
+    [mADBController getLogcatAsync];
+}
+
 #pragma mark -
 #pragma mark ADBDelegate
 
@@ -165,6 +169,10 @@
     if ([self.connectedDevices count] == 1) {
         [self->mDeviceList selectItemAtIndex:0];
     }
+}
+
+- (void)onLogcatReceived:(NSString *)logcat {
+    [self.textView setString:logcat];
 }
 
 - (void)onADBError:(NSError*) error {

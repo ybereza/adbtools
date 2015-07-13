@@ -22,10 +22,14 @@
     ADBController* mADBController;
 }
 
-- (IBAction)createNewWindow:(NSMenuItem *)sender;
 
+- (IBAction)createNewWindow:(NSMenuItem *)sender;
+- (IBAction)onRefreshButtonClick:(id)sender;
+
+@property (weak) IBOutlet NSToolbarItem* refreshButton;
 @property (assign) IBOutlet NSWindow *window;
 @property NSArray* connectedDevices;
+@property (unsafe_unretained) IBOutlet NSTextView *textView;
 
 @end
 
