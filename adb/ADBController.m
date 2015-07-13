@@ -15,6 +15,31 @@
 static const int kDefaultPort = 5037;
 static const int kADB_SERVER_VERSION = 32;
 
+//adb = socket()
+//
+//adb.connect(('localhost', 5037))
+//
+//cmdlen = '%04x' % len('host:transport-usb')
+//
+//adb.send(cmdlen)
+//Out[100]: 4
+//
+//adb.send('host:transport-usb')
+//or
+//adb.send('host:transport:deviceid')
+//Out[101]: 18
+//
+//adb.recv(4)
+//Out[102]: 'OKAY'
+//
+//cmdlen = '%04x' % len('shell:logcat -d')
+//
+//adb.send(cmdlen)
+//Out[104]: 4
+//
+//adb.send('shell:logcat -d')
+
+
 @interface ADBController()
 
 @property NSTask* mADBServerTask;
