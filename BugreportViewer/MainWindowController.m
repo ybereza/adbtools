@@ -22,7 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self->mDeviceList setUsesDataSource:YES];
-    [self->mDeviceList setDataSource:self];    
+    [self->mDeviceList setDataSource:self];
+    
+    [[self.textView enclosingScrollView] setHasHorizontalScroller:YES];
+    [[self.textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
+    [[self.textView textContainer] setWidthTracksTextView:NO];
     [self initADBController];
 }
 
@@ -173,6 +177,7 @@
 
 - (void)onLogcatReceived:(NSString *)logcat {
     [self.textView setString:logcat];
+    [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
 }
 
 - (void)onADBError:(NSError*) error {
