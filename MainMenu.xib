@@ -680,7 +680,7 @@
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="liM-65-am7" id="dsN-SE-EPd">
+                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="liM-65-am7" id="dsN-SE-EPd">
                                                     <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -778,7 +778,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView importsGraphics="NO" horizontallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="AwS-a1-NT1">
-                                                    <rect key="frame" x="0.0" y="0.0" width="223" height="600"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="584" height="600"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <size key="minSize" width="584" height="600"/>
@@ -869,6 +869,7 @@
                 <outlet property="mDeviceList" destination="c7z-1J-9YA" id="6Cn-Ua-fuo"/>
                 <outlet property="mDeviceListController" destination="uZC-Fc-TWg" id="liu-T5-lOF"/>
                 <outlet property="mOutlineView" destination="dsN-SE-EPd" id="Tlo-aR-RGW"/>
+                <outlet property="progressSheet" destination="jgU-qL-DGS" id="fPy-N0-54f"/>
                 <outlet property="refreshButton" destination="bfI-xf-195" id="THW-NP-QuO"/>
                 <outlet property="textView" destination="AwS-a1-NT1" id="3wr-yU-Pdc"/>
                 <outlet property="view" destination="eqJ-gq-PZe" id="ChC-va-8dj"/>
