@@ -159,7 +159,7 @@
 }
 
 - (IBAction)onRefreshButtonClick:(id)sender {
-    [mADBController getLogcatAsync];
+    [mADBController getBugreportAsync];
 }
 
 
@@ -173,6 +173,11 @@
 
 - (void)onLogcatReceived:(NSString *)logcat {
     [self.textView setString:logcat];
+    [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
+}
+
+- (void)onBugreportReceived:(NSString *)bugreport {
+    [self.textView setString:bugreport];
     [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
 }
 

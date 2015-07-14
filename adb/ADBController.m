@@ -73,6 +73,17 @@ static const int kADB_SERVER_VERSION = 32;
     }];
 }
 
+- (void)getBugreportAsync {
+    [self executeShellCommand:@"shell:bugreport" Async: ^(NSString* result, NSError* error){
+        if (error != nil && result == nil) {
+            [self.delegate onADBError:error];
+        }
+        else {
+            [self.delegate onBugreportReceived:result];
+        }
+    }];
+}
+
 - (void)executeCommand:(NSString *)command Async:(asyncCommandResult)result {
     dispatch_async(self->mQueue, ^{
         NSError* error = nil;

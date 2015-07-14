@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, ADBError) {
 
 - (void)onDeviceListReceived:(NSArray*)devices;
 - (void)onLogcatReceived:(NSString*)logcat;
+- (void)onBugreportReceived:(NSString*)bugreport;
 //error code will be ADBError
 - (void)onADBError:(NSError*)error;
 

@@ -27,5 +27,6 @@ typedef void (^asyncCommandResult)(NSString* result, NSError* error);
 - (void)executeCommand:(NSString *)command Async:(asyncCommandResult)result;
 - (void)getDevicesListAsync;
 - (void)getLogcatAsync;
+- (void)getBugreportAsync;
 
 @end
