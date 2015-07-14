@@ -9,17 +9,18 @@
 #import <Cocoa/Cocoa.h>
 
 #import "ADBDelegate.h"
+#import "DeviceListController.h"
 
 @class ADBController;
 
-@interface MainWindowController : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate, ADBDelegate, NSComboBoxDataSource>
+@interface MainWindowController : NSViewController <NSOutlineViewDataSource, NSOutlineViewDelegate, ADBDelegate>
 {
 @private
     NSArray* mTopLevelItems;
     NSMutableDictionary* mChildrenDictionary;
-    IBOutlet NSOutlineView *mOutlineView;
-    IBOutlet NSComboBox* mDeviceList;
     ADBController* mADBController;
+    IBOutlet NSOutlineView *mOutlineView;
+    __weak IBOutlet DeviceListController *mDeviceListController;
 }
 
 
@@ -28,7 +29,6 @@
 
 @property (weak) IBOutlet NSToolbarItem* refreshButton;
 @property (assign) IBOutlet NSWindow *window;
-@property NSArray* connectedDevices;
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 
 @end

@@ -840,6 +840,10 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </comboBoxCell>
+                            <connections>
+                                <outlet property="dataSource" destination="uZC-Fc-TWg" id="YRa-ib-cBi"/>
+                                <outlet property="delegate" destination="uZC-Fc-TWg" id="XCs-U7-j5i"/>
+                            </connections>
                         </comboBox>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="30AE9633-0749-48B4-98FF-E6A34A5BBE24" label="Open" paletteLabel="Open" tag="-1" image="NSFolder" id="98V-4M-MqH"/>
@@ -863,11 +867,17 @@
         <viewController id="bSD-en-s3y" userLabel="MainController" customClass="MainWindowController">
             <connections>
                 <outlet property="mDeviceList" destination="c7z-1J-9YA" id="6Cn-Ua-fuo"/>
+                <outlet property="mDeviceListController" destination="uZC-Fc-TWg" id="liu-T5-lOF"/>
                 <outlet property="mOutlineView" destination="dsN-SE-EPd" id="Tlo-aR-RGW"/>
                 <outlet property="refreshButton" destination="bfI-xf-195" id="THW-NP-QuO"/>
                 <outlet property="textView" destination="AwS-a1-NT1" id="3wr-yU-Pdc"/>
                 <outlet property="view" destination="eqJ-gq-PZe" id="ChC-va-8dj"/>
                 <outlet property="window" destination="5Lv-jt-E91" id="9rY-6S-lLS"/>
+            </connections>
+        </viewController>
+        <viewController id="uZC-Fc-TWg" userLabel="DeviceListController" customClass="DeviceListController">
+            <connections>
+                <outlet property="deviceListBox" destination="c7z-1J-9YA" id="7Dd-hx-iaN"/>
             </connections>
         </viewController>
     </objects>

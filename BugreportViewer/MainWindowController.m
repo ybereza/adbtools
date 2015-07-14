@@ -16,13 +16,12 @@
 - (void)initADBController {
     
     mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/y.bereza/android/sdk" andDelegate:self];
+    mDeviceListController.deviceChangedDelegate = mADBController;
     [mADBController getDevicesListAsync];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self->mDeviceList setUsesDataSource:YES];
-    [self->mDeviceList setDataSource:self];
     
     [[self.textView enclosingScrollView] setHasHorizontalScroller:YES];
     [[self.textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
@@ -163,16 +162,13 @@
     [mADBController getLogcatAsync];
 }
 
+
 #pragma mark -
 #pragma mark ADBDelegate
 
 - (void)onDeviceListReceived:(NSArray*) devices {
-    self.connectedDevices = devices;
     NSLog(@"onDeviceListReceived %@", devices);
-    [self->mDeviceList reloadData];
-    if ([self.connectedDevices count] == 1) {
-        [self->mDeviceList selectItemAtIndex:0];
-    }
+    [self->mDeviceListController updateDeviceList:devices];
 }
 
 - (void)onLogcatReceived:(NSString *)logcat {
@@ -182,17 +178,6 @@
 
 - (void)onADBError:(NSError*) error {
     NSLog(@"onADBError %@", error);
-}
-
-#pragma mark -
-#pragma mark NSComboBoxDataSource
-
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox {
-    return self.connectedDevices != nil ? [self.connectedDevices count] : 0;
-}
-
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index {
-    return [self.connectedDevices objectAtIndex:index];
 }
 
 @end

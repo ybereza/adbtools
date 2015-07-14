@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2482D581B54F8D0007BF49A /* DeviceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2482D571B54F8D0007BF49A /* DeviceListController.m */; };
 		D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45221B2F5E8400FABC6D /* AppDelegate.m */; };
 		D22C45251B2F5E8400FABC6D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45241B2F5E8400FABC6D /* main.m */; };
 		D22C45281B2F5E8400FABC6D /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45271B2F5E8400FABC6D /* MainWindowController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A2482D561B54F8D0007BF49A /* DeviceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListController.h; path = BugreportViewer/DeviceListController.h; sourceTree = "<group>"; };
+		A2482D571B54F8D0007BF49A /* DeviceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListController.m; path = BugreportViewer/DeviceListController.m; sourceTree = "<group>"; };
 		D22C451C1B2F5E8400FABC6D /* BugreportViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugreportViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22C45201B2F5E8400FABC6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D22C45211B2F5E8400FABC6D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 		D22C45131B2F5E8400FABC6D = {
 			isa = PBXGroup;
 			children = (
+				A2482D561B54F8D0007BF49A /* DeviceListController.h */,
+				A2482D571B54F8D0007BF49A /* DeviceListController.m */,
 				D2ABD65B1B498F5300653319 /* ADBDelegate.h */,
 				D2ABD6571B49831A00653319 /* ADBController.h */,
 				D2ABD6581B49831A00653319 /* ADBController.m */,
@@ -232,6 +237,7 @@
 				D2ABD6561B489EB900653319 /* SidebarTableCellView.m in Sources */,
 				D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */,
 				D2ABD6591B49831A00653319 /* ADBController.m in Sources */,
+				A2482D581B54F8D0007BF49A /* DeviceListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

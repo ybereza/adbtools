@@ -15,31 +15,6 @@
 static const int kDefaultPort = 5037;
 static const int kADB_SERVER_VERSION = 32;
 
-//adb = socket()
-//
-//adb.connect(('localhost', 5037))
-//
-//cmdlen = '%04x' % len('host:transport-usb')
-//
-//adb.send(cmdlen)
-//Out[100]: 4
-//
-//adb.send('host:transport-usb')
-//or
-//adb.send('host:transport:deviceid')
-//Out[101]: 18
-//
-//adb.recv(4)
-//Out[102]: 'OKAY'
-//
-//cmdlen = '%04x' % len('shell:logcat -d')
-//
-//adb.send(cmdlen)
-//Out[104]: 4
-//
-//adb.send('shell:logcat -d')
-
-
 @interface ADBController()
 
 @property NSTask* mADBServerTask;
@@ -129,7 +104,12 @@ static const int kADB_SERVER_VERSION = 32;
                                              code:ADBErrorSocketNotCreated userInfo:nil];
             }
             //we need to select transport and not to close connection
-            [self sendCommand:@"host:transport-any" failedWithError:&error];
+            if (self.deviceId == nil) {
+                [self sendCommand:@"host:transport-any" failedWithError:&error];
+            }
+            else {
+                [self sendCommand:[NSString stringWithFormat:@"host:transport:%@", self.deviceId] failedWithError:&error];
+            }
             if (error == nil) {
                 //now we can execute device shell command
                 [self sendCommand:command failedWithError:&error];
@@ -357,6 +337,13 @@ static const int kADB_SERVER_VERSION = 32;
         return NO;
     }
     return YES;
+}
+
+#pragma mark -
+#pragma mark DeviceChangedDelegate
+
+- (void)deviceDidiChanged:(nonnull NSString*)deviceId {
+    self.deviceId = deviceId;
 }
 
 @end
