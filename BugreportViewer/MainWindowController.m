@@ -32,18 +32,18 @@
 - (void)viewWillAppear {
     [super viewWillAppear];
     // The array determines our order
-    mTopLevelItems = [NSArray arrayWithObjects:@"Favorites", @"Content Views", @"Mailboxes", @"A Fourth Group", nil];
+    mTopLevelItems = [NSArray arrayWithObjects:@"Device Info", @"Device Logs", @"Processes", @"Power consuption", nil];
     
     // The data is stored ina  dictionary. The objects are the nib names to load.
     mChildrenDictionary = [NSMutableDictionary new];
     [mChildrenDictionary setObject:[NSArray arrayWithObjects:@"ContentView1", @"ContentView2", @"ContentView3", nil]
-                            forKey:@"Favorites"];
+                            forKey:@"Device Info"];
     [mChildrenDictionary setObject:[NSArray arrayWithObjects:@"ContentView1", @"ContentView2", @"ContentView3", nil]
-                            forKey:@"Content Views"];
+                            forKey:@"Device Logs"];
     [mChildrenDictionary setObject:[NSArray arrayWithObjects:@"ContentView2", nil]
-                            forKey:@"Mailboxes"];
+                            forKey:@"Processes"];
     [mChildrenDictionary setObject:[NSArray arrayWithObjects:@"ContentView1", @"ContentView1", @"ContentView1", @"ContentView1", @"ContentView2", nil]
-                            forKey:@"A Fourth Group"];
+                            forKey:@"Power consuption"];
     
     // The basic recipe for a sidebar. Note that the selectionHighlightStyle is set to NSTableViewSelectionHighlightStyleSourceList in the nib
     [mOutlineView sizeLastColumnToFit];
@@ -154,12 +154,29 @@
     }
 }
 
+- (void)showProgressSheet {
+    [NSApp beginSheet: self.progressSheet
+       modalForWindow: self.window
+        modalDelegate: self
+       didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
+          contextInfo: nil];
+}
+
+- (void)hideProgressSheet {
+    [NSApp endSheet:self.progressSheet];
+}
+
+- (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [sheet orderOut:self];
+}
+
 - (IBAction)createNewWindow:(NSMenuItem *)sender {
     NSLog(@"Create new window");
 }
 
 - (IBAction)onRefreshButtonClick:(id)sender {
     [mADBController getBugreportAsync];
+    [self showProgressSheet];
 }
 
 
@@ -179,6 +196,7 @@
 - (void)onBugreportReceived:(NSString *)bugreport {
     [self.textView setString:bugreport];
     [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
+    [self hideProgressSheet];
 }
 
 - (void)onADBError:(NSError*) error {

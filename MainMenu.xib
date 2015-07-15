@@ -848,16 +848,39 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="30AE9633-0749-48B4-98FF-E6A34A5BBE24" label="Open" paletteLabel="Open" tag="-1" image="NSFolder" id="98V-4M-MqH"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarSeparatorItem" id="FVs-Ni-6xs"/>
-                    <toolbarItem implicitItemIdentifier="EE524E65-DE79-48DC-9D71-93EDF08F0250" label="Take bugreport" paletteLabel="Take bugreport" tag="-1" image="NSRefreshFreestandingTemplate" id="bfI-xf-195">
-                        <connections>
-                            <action selector="onRefreshButtonClick:" target="bSD-en-s3y" id="g7p-q3-VXX"/>
-                        </connections>
+                    <toolbarItem implicitItemIdentifier="E71D9988-E755-45AC-AFBC-7729F768766B" label="Load bugreport" paletteLabel="Load bugreport" image="NSRefreshFreestandingTemplate" id="SRv-GH-1Ky">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="32" height="32"/>
+                        <size key="maxSize" width="44" height="64"/>
+                        <button key="view" verticalHuggingPriority="750" id="lhZ-SH-NpU">
+                            <rect key="frame" x="23" y="14" width="44" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRefreshFreestandingTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dh7-9W-pcM">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="onRefreshButtonClick:" target="bSD-en-s3y" id="hmG-2r-zl2"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="6A1C8AE7-E028-4DE3-8A7F-4FC237996117" label="Open Bugreport" paletteLabel="Open Bugreport" image="folder-icon" id="3jV-St-3mn">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="32" height="32"/>
+                        <size key="maxSize" width="44" height="64"/>
+                        <button key="view" verticalHuggingPriority="750" id="Bkg-pZ-pIM">
+                            <rect key="frame" x="30" y="14" width="44" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="push" bezelStyle="rounded" image="folder-icon" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c1n-Bq-R0P">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="98V-4M-MqH"/>
-                    <toolbarItem reference="FVs-Ni-6xs"/>
-                    <toolbarItem reference="bfI-xf-195"/>
+                    <toolbarItem reference="3jV-St-3mn"/>
+                    <toolbarItem reference="SRv-GH-1Ky"/>
                     <toolbarItem reference="5O4-Zm-lUf"/>
                     <toolbarItem reference="cQ1-PJ-hzJ"/>
                 </defaultToolbarItems>
@@ -870,7 +893,7 @@
                 <outlet property="mDeviceListController" destination="uZC-Fc-TWg" id="liu-T5-lOF"/>
                 <outlet property="mOutlineView" destination="dsN-SE-EPd" id="Tlo-aR-RGW"/>
                 <outlet property="progressSheet" destination="jgU-qL-DGS" id="fPy-N0-54f"/>
-                <outlet property="refreshButton" destination="bfI-xf-195" id="THW-NP-QuO"/>
+                <outlet property="refreshButton" destination="SRv-GH-1Ky" id="LXi-dN-bam"/>
                 <outlet property="textView" destination="AwS-a1-NT1" id="3wr-yU-Pdc"/>
                 <outlet property="view" destination="eqJ-gq-PZe" id="ChC-va-8dj"/>
                 <outlet property="window" destination="5Lv-jt-E91" id="9rY-6S-lLS"/>
@@ -901,7 +924,7 @@
                                 </progressIndicator>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kgc-5h-tks">
                                     <rect key="frame" x="16" y="14" width="335" height="23"/>
-                                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Please wait. It may takes several minutes" id="RLY-KI-ikK">
+                                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Please wait. It may take several minutes" id="RLY-KI-ikK">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -909,7 +932,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0R-RI-hHn">
                                     <rect key="frame" x="16" y="51" width="335" height="34"/>
-                                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Loading bugreport from device" id="acJ-Sz-aZY">
+                                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" title="Loading bugreport from device..." id="acJ-Sz-aZY">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -929,5 +952,6 @@
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSFolder" width="32" height="32"/>
         <image name="NSRefreshFreestandingTemplate" width="14" height="14"/>
+        <image name="folder-icon" width="40" height="40"/>
     </resources>
 </document>
