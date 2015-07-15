@@ -904,17 +904,17 @@
                 <outlet property="deviceListBox" destination="c7z-1J-9YA" id="7Dd-hx-iaN"/>
             </connections>
         </viewController>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="jgU-qL-DGS" customClass="NSPanel">
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="jgU-qL-DGS" customClass="ProgressPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="112" width="403" height="117"/>
+            <rect key="contentRect" x="196" y="112" width="403" height="113"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" id="qXv-Zz-Lo6">
-                <rect key="frame" x="0.0" y="-5" width="403" height="117"/>
+                <rect key="frame" x="0.0" y="0.0" width="403" height="113"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box autoresizesSubviews="NO" fixedFrame="YES" title="Loading bugreport from device" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="37F-2d-tVn">
-                        <rect key="frame" x="17" y="16" width="369" height="99"/>
+                        <rect key="frame" x="17" y="6" width="369" height="99"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="367" height="97"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -945,7 +945,12 @@
                     </box>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="714.5" y="198.5"/>
+            <connections>
+                <outlet property="primaryText" destination="a0R-RI-hHn" id="qtw-uP-jez"/>
+                <outlet property="progressIndicator" destination="QoP-jM-Z3i" id="8vj-xK-77o"/>
+                <outlet property="secondaryText" destination="kgc-5h-tks" id="tUK-gP-baX"/>
+            </connections>
+            <point key="canvasLocation" x="714.5" y="200.5"/>
         </window>
     </objects>
     <resources>

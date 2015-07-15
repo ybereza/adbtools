@@ -160,10 +160,12 @@
         modalDelegate: self
        didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
           contextInfo: nil];
+    [self.progressSheet.progressIndicator startAnimation:self];
 }
 
 - (void)hideProgressSheet {
     [NSApp endSheet:self.progressSheet];
+    [self.progressSheet.progressIndicator stopAnimation:self];
 }
 
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {

@@ -10,6 +10,7 @@
 
 #import "ADBDelegate.h"
 #import "DeviceListController.h"
+#import "ProgressPanel.h"
 
 @class ADBController;
 
@@ -29,7 +30,7 @@
 
 @property (assign) IBOutlet NSToolbarItem* refreshButton;
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSPanel* progressSheet;
+@property (assign) IBOutlet ProgressPanel* progressSheet;
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 
 @end
