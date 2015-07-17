@@ -55,7 +55,7 @@ typedef void (^lineBlock)(NSString* lineSubstring);
     for (NSUInteger index = 0; index < stringLength; ++index) {
         if (([self.bugreport characterAtIndex:index] == newLine) ||
             ([self.bugreport characterAtIndex:index] == lineBreak)) {
-            if ([self.bugreport characterAtIndex:index+1] == lineBreak) {
+            if (index+1 < stringLength && [self.bugreport characterAtIndex:index+1] == lineBreak) {
                 ++index;
             }
             lineEnd = index;
