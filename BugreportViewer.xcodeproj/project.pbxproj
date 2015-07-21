@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A2482D581B54F8D0007BF49A /* DeviceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2482D571B54F8D0007BF49A /* DeviceListController.m */; };
+		A2498FB41B5D324000E2BFC2 /* AProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = A2498FB31B5D324000E2BFC2 /* AProcess.m */; };
+		A2498FB81B5E49BD00E2BFC2 /* AProcessList.m in Sources */ = {isa = PBXBuildFile; fileRef = A2498FB71B5E49BD00E2BFC2 /* AProcessList.m */; };
 		A29917AC1B56A34D005F8301 /* ProgressPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A29917AB1B56A34D005F8301 /* ProgressPanel.m */; };
 		A29917B01B578D32005F8301 /* BugreportParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A29917AF1B578D32005F8301 /* BugreportParser.m */; };
 		D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45221B2F5E8400FABC6D /* AppDelegate.m */; };
@@ -33,6 +35,10 @@
 /* Begin PBXFileReference section */
 		A2482D561B54F8D0007BF49A /* DeviceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceListController.h; sourceTree = "<group>"; };
 		A2482D571B54F8D0007BF49A /* DeviceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListController.m; sourceTree = "<group>"; };
+		A2498FB21B5D324000E2BFC2 /* AProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AProcess.h; sourceTree = "<group>"; };
+		A2498FB31B5D324000E2BFC2 /* AProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AProcess.m; sourceTree = "<group>"; };
+		A2498FB61B5E49BD00E2BFC2 /* AProcessList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AProcessList.h; sourceTree = "<group>"; };
+		A2498FB71B5E49BD00E2BFC2 /* AProcessList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AProcessList.m; sourceTree = "<group>"; };
 		A29917AA1B56A34D005F8301 /* ProgressPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressPanel.h; sourceTree = "<group>"; };
 		A29917AB1B56A34D005F8301 /* ProgressPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressPanel.m; sourceTree = "<group>"; };
 		A29917AE1B578D32005F8301 /* BugreportParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugreportParser.h; sourceTree = "<group>"; };
@@ -74,6 +80,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2498FB51B5D324600E2BFC2 /* Android */ = {
+			isa = PBXGroup;
+			children = (
+				A2498FB21B5D324000E2BFC2 /* AProcess.h */,
+				A2498FB31B5D324000E2BFC2 /* AProcess.m */,
+				A2498FB61B5E49BD00E2BFC2 /* AProcessList.h */,
+				A2498FB71B5E49BD00E2BFC2 /* AProcessList.m */,
+			);
+			name = Android;
+			sourceTree = "<group>";
+		};
 		A29917AD1B578CFC005F8301 /* ADB */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +138,7 @@
 				D22C451F1B2F5E8400FABC6D /* Supporting Files */,
 				D2ABD6541B489EB900653319 /* SidebarTableCellView.h */,
 				D2ABD6551B489EB900653319 /* SidebarTableCellView.m */,
+				A2498FB51B5D324600E2BFC2 /* Android */,
 			);
 			path = BugreportViewer;
 			sourceTree = "<group>";
@@ -255,7 +273,9 @@
 				D2ABD6561B489EB900653319 /* SidebarTableCellView.m in Sources */,
 				A29917B01B578D32005F8301 /* BugreportParser.m in Sources */,
 				D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */,
+				A2498FB41B5D324000E2BFC2 /* AProcess.m in Sources */,
 				D2ABD6591B49831A00653319 /* ADBController.m in Sources */,
+				A2498FB81B5E49BD00E2BFC2 /* AProcessList.m in Sources */,
 				A2482D581B54F8D0007BF49A /* DeviceListController.m in Sources */,
 				A29917AC1B56A34D005F8301 /* ProgressPanel.m in Sources */,
 			);
