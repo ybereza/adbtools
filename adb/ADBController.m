@@ -258,7 +258,9 @@ static const int kADB_SERVER_VERSION = 32;
 }
 
 - (BOOL)connect {
+    //try to connect to existing adb server
     if (![self _connect]) {
+        //if adb server start it and try to connect once again
         if ([self launchADBServer]) {
             return [self _connect];
         }
