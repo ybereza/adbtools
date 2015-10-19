@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface BugreportParser : NSObject
+@property NSString* bugreport;
+
 - (instancetype)init;
 - (instancetype)initWithBugreport:(NSString*)bugreport;
 
-@property NSString* bugreport;
+- (void)parse;
 
 @end

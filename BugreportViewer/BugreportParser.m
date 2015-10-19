@@ -15,7 +15,7 @@ typedef void (^lineBlock)(NSString* lineSubstring);
 @property NSRegularExpression* bugreportSectionsRegexp;
 @property NSRegularExpression* showMapSubsectionRegexp;
 
-- (void)walThroughLines:(lineBlock)doOnEachLine;
+- (void)walkThroughLines:(lineBlock)doOnEachLine;
 
 @end
 
@@ -45,7 +45,7 @@ typedef void (^lineBlock)(NSString* lineSubstring);
     return self;
 }
 
-- (void)walThroughLines:(lineBlock)doOnEachLine {
+- (void)walkThroughLines:(lineBlock)doOnEachLine {
     NSUInteger lineStart = 0;
     NSUInteger lineEnd = 0;
     NSUInteger stringLength = [self.bugreport length];
@@ -68,6 +68,10 @@ typedef void (^lineBlock)(NSString* lineSubstring);
         NSRange lineSubString = NSMakeRange(lineStart, stringLength);
         doOnEachLine([self.bugreport substringWithRange:lineSubString]);
     }
+}
+
+- (void)parse {
+
 }
 
 @end

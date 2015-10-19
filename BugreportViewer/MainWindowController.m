@@ -27,6 +27,7 @@
     [[self.textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[self.textView textContainer] setWidthTracksTextView:NO];
     [self initADBController];
+    self.window.titleVisibility = NSWindowTitleHidden;
 }
 
 - (void)viewWillAppear {
