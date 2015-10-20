@@ -27,6 +27,7 @@
     [[self.textView textContainer] setContainerSize:NSMakeSize(FLT_MAX, FLT_MAX)];
     [[self.textView textContainer] setWidthTracksTextView:NO];
     [self initADBController];
+    mParser = [[BugreportParser alloc] init];
     self.window.titleVisibility = NSWindowTitleHidden;
 }
 
@@ -199,6 +200,8 @@
 - (void)onBugreportReceived:(NSString *)bugreport {
     [self.textView setString:bugreport];
     [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
+    mParser.bugreport = bugreport;
+    [mParser parse];
     [self hideProgressSheet];
 }
 

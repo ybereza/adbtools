@@ -11,6 +11,7 @@
 #import "ADBDelegate.h"
 #import "DeviceListController.h"
 #import "ProgressPanel.h"
+#import "BugreportParser.h"
 
 @class ADBController;
 
@@ -20,6 +21,7 @@
     NSArray* mTopLevelItems;
     NSMutableDictionary* mChildrenDictionary;
     ADBController* mADBController;
+    BugreportParser* mParser;
     IBOutlet NSOutlineView *mOutlineView;
     __weak IBOutlet DeviceListController *mDeviceListController;
 }

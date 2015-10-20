@@ -51,14 +51,22 @@ typedef void (^lineBlock)(NSString* lineSubstring);
     NSUInteger stringLength = [self.bugreport length];
     unichar newLine = '\n';
     unichar lineBreak = '\r';
-    
+    NSMutableSet* foundLineStart = [[NSMutableSet alloc] init];
     for (NSUInteger index = 0; index < stringLength; ++index) {
         if (([self.bugreport characterAtIndex:index] == newLine) ||
             ([self.bugreport characterAtIndex:index] == lineBreak)) {
-            if (index+1 < stringLength && [self.bugreport characterAtIndex:index+1] == lineBreak) {
+            if (index+1 < stringLength &&
+                (([self.bugreport characterAtIndex:index+1] == lineBreak) || ([self.bugreport characterAtIndex:index+1] == newLine))) {
                 ++index;
             }
             lineEnd = index;
+            NSNumber * testLineStart = [NSNumber numberWithUnsignedInteger:lineStart];
+            if ([foundLineStart containsObject:testLineStart]) {
+                NSLog(@"Error, line position %@ allready exists", testLineStart);
+            }
+            else {
+                [foundLineStart addObject:testLineStart];
+            }
             NSRange lineSubString = NSMakeRange(lineStart, lineEnd);
             doOnEachLine([self.bugreport substringWithRange:lineSubString]);
             lineStart = lineEnd;
@@ -71,7 +79,15 @@ typedef void (^lineBlock)(NSString* lineSubstring);
 }
 
 - (void)parse {
-
+    [self walkThroughLines:^(NSString *lineSubstring) {
+        NSArray<NSTextCheckingResult*>* matches = [_bugreportSectionsRegexp matchesInString:lineSubstring
+                                                                                    options:0
+                                                                                      range:NSMakeRange(0, [lineSubstring length])];
+        for (NSTextCheckingResult* match in matches) {
+            NSRange sectionRange = [match rangeAtIndex:1];
+            NSLog(@"Group name %@", [lineSubstring substringWithRange:sectionRange]);
+        }
+    }];
 }
 
 @end
