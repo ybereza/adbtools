@@ -51,7 +51,10 @@ typedef void (^lineBlock)(NSString* lineSubstring);
     NSUInteger stringLength = [self.bugreport length];
     unichar newLine = '\n';
     unichar lineBreak = '\r';
-    NSMutableSet* foundLineStart = [[NSMutableSet alloc] init];
+    
+    NSDate *date = [NSDate date];
+    NSTimeInterval start = [date timeIntervalSince1970];
+    
     for (NSUInteger index = 0; index < stringLength; ++index) {
         if (([self.bugreport characterAtIndex:index] == newLine) ||
             ([self.bugreport characterAtIndex:index] == lineBreak)) {
@@ -60,25 +63,21 @@ typedef void (^lineBlock)(NSString* lineSubstring);
                 ++index;
             }
             lineEnd = index;
-            NSNumber * testLineStart = [NSNumber numberWithUnsignedInteger:lineStart];
-            if ([foundLineStart containsObject:testLineStart]) {
-                NSLog(@"Error, line position %@ allready exists", testLineStart);
-            }
-            else {
-                [foundLineStart addObject:testLineStart];
-            }
-            NSRange lineSubString = NSMakeRange(lineStart, lineEnd);
+            NSRange lineSubString = NSMakeRange(lineStart, lineEnd - lineStart);
             doOnEachLine([self.bugreport substringWithRange:lineSubString]);
             lineStart = lineEnd;
         }
     }
     if (lineStart != stringLength) {
-        NSRange lineSubString = NSMakeRange(lineStart, stringLength);
+        NSRange lineSubString = NSMakeRange(lineStart, stringLength - lineStart);
         doOnEachLine([self.bugreport substringWithRange:lineSubString]);
     }
+    NSTimeInterval finish = [date timeIntervalSince1970];
+    NSLog(@"Finished parsing in %f", finish - start);
 }
 
 - (void)parse {
+    __block NSInteger foundSections = 0;
     [self walkThroughLines:^(NSString *lineSubstring) {
         NSArray<NSTextCheckingResult*>* matches = [_bugreportSectionsRegexp matchesInString:lineSubstring
                                                                                     options:0
@@ -86,8 +85,10 @@ typedef void (^lineBlock)(NSString* lineSubstring);
         for (NSTextCheckingResult* match in matches) {
             NSRange sectionRange = [match rangeAtIndex:1];
             NSLog(@"Group name %@", [lineSubstring substringWithRange:sectionRange]);
+            ++foundSections;
         }
     }];
+    NSLog(@"Found %ld sections", foundSections);
 }
 
 @end
