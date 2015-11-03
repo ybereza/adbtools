@@ -8,6 +8,25 @@
 
 #import "BugreportParser.h"
 
+#include "parsing_functions.h"
+
+typedef NS_ENUM(NSInteger, ParsingStage) {
+    DEFAULT,
+    PARSE_UPTIME
+};
+
+typedef void (*parsing_function)();
+
+typedef struct _parsing_state {
+    const char*  group_name;
+    parsing_function parsing_function_ptr;
+    ParsingStage stage;
+} parsing_state;
+
+parsing_state parsing_states[] = {
+    {"UPTIME (uptime)", parse_uptime, PARSE_UPTIME}
+};
+
 typedef void (^lineBlock)(NSString* lineSubstring);
 
 @interface BugreportParser()
