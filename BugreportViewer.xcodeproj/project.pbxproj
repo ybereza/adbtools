@@ -12,7 +12,8 @@
 		A2498FB81B5E49BD00E2BFC2 /* AProcessList.m in Sources */ = {isa = PBXBuildFile; fileRef = A2498FB71B5E49BD00E2BFC2 /* AProcessList.m */; };
 		A29917AC1B56A34D005F8301 /* ProgressPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A29917AB1B56A34D005F8301 /* ProgressPanel.m */; };
 		A29917B01B578D32005F8301 /* BugreportParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A29917AF1B578D32005F8301 /* BugreportParser.m */; };
-		A2C2C51B1BD8C1EA00DE4179 /* parsing_functions.c in Sources */ = {isa = PBXBuildFile; fileRef = A2C2C5191BD8C1EA00DE4179 /* parsing_functions.c */; settings = {ASSET_TAGS = (); }; };
+		A2C2C51B1BD8C1EA00DE4179 /* parsing_functions.m in Sources */ = {isa = PBXBuildFile; fileRef = A2C2C5191BD8C1EA00DE4179 /* parsing_functions.m */; };
+		D209D2F51C0CD0FC002648E2 /* AUptime.m in Sources */ = {isa = PBXBuildFile; fileRef = D209D2F41C0CD0FC002648E2 /* AUptime.m */; };
 		D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45221B2F5E8400FABC6D /* AppDelegate.m */; };
 		D22C45251B2F5E8400FABC6D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45241B2F5E8400FABC6D /* main.m */; };
 		D22C45281B2F5E8400FABC6D /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D22C45271B2F5E8400FABC6D /* MainWindowController.m */; };
@@ -44,8 +45,10 @@
 		A29917AB1B56A34D005F8301 /* ProgressPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressPanel.m; sourceTree = "<group>"; };
 		A29917AE1B578D32005F8301 /* BugreportParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BugreportParser.h; sourceTree = "<group>"; };
 		A29917AF1B578D32005F8301 /* BugreportParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BugreportParser.m; sourceTree = "<group>"; };
-		A2C2C5191BD8C1EA00DE4179 /* parsing_functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsing_functions.c; sourceTree = "<group>"; };
+		A2C2C5191BD8C1EA00DE4179 /* parsing_functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = parsing_functions.m; sourceTree = "<group>"; };
 		A2C2C51A1BD8C1EA00DE4179 /* parsing_functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parsing_functions.h; sourceTree = "<group>"; };
+		D209D2F31C0CD0FC002648E2 /* AUptime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AUptime.h; sourceTree = "<group>"; };
+		D209D2F41C0CD0FC002648E2 /* AUptime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AUptime.m; sourceTree = "<group>"; };
 		D22C451C1B2F5E8400FABC6D /* BugreportViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BugreportViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D22C45201B2F5E8400FABC6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D22C45211B2F5E8400FABC6D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,6 +93,8 @@
 				A2498FB31B5D324000E2BFC2 /* AProcess.m */,
 				A2498FB61B5E49BD00E2BFC2 /* AProcessList.h */,
 				A2498FB71B5E49BD00E2BFC2 /* AProcessList.m */,
+				D209D2F31C0CD0FC002648E2 /* AUptime.h */,
+				D209D2F41C0CD0FC002648E2 /* AUptime.m */,
 			);
 			name = Android;
 			sourceTree = "<group>";
@@ -142,7 +147,7 @@
 				D2ABD6541B489EB900653319 /* SidebarTableCellView.h */,
 				D2ABD6551B489EB900653319 /* SidebarTableCellView.m */,
 				A2498FB51B5D324600E2BFC2 /* Android */,
-				A2C2C5191BD8C1EA00DE4179 /* parsing_functions.c */,
+				A2C2C5191BD8C1EA00DE4179 /* parsing_functions.m */,
 				A2C2C51A1BD8C1EA00DE4179 /* parsing_functions.h */,
 			);
 			path = BugreportViewer;
@@ -218,7 +223,7 @@
 		D22C45141B2F5E8400FABC6D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Yury Bereza";
 				TargetAttributes = {
 					D22C451B1B2F5E8400FABC6D = {
@@ -278,10 +283,11 @@
 				D2ABD6561B489EB900653319 /* SidebarTableCellView.m in Sources */,
 				A29917B01B578D32005F8301 /* BugreportParser.m in Sources */,
 				D22C45231B2F5E8400FABC6D /* AppDelegate.m in Sources */,
-				A2C2C51B1BD8C1EA00DE4179 /* parsing_functions.c in Sources */,
+				A2C2C51B1BD8C1EA00DE4179 /* parsing_functions.m in Sources */,
 				A2498FB41B5D324000E2BFC2 /* AProcess.m in Sources */,
 				D2ABD6591B49831A00653319 /* ADBController.m in Sources */,
 				A2498FB81B5E49BD00E2BFC2 /* AProcessList.m in Sources */,
+				D209D2F51C0CD0FC002648E2 /* AUptime.m in Sources */,
 				A2482D581B54F8D0007BF49A /* DeviceListController.m in Sources */,
 				A29917AC1B56A34D005F8301 /* ProgressPanel.m in Sources */,
 			);
@@ -327,6 +333,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -393,6 +400,7 @@
 				INFOPLIST_FILE = BugreportViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yurybereza.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -405,6 +413,7 @@
 				INFOPLIST_FILE = BugreportViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yurybereza.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -424,6 +433,7 @@
 				);
 				INFOPLIST_FILE = BugreportViewerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yurybereza.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BugreportViewer.app/Contents/MacOS/BugreportViewer";
 			};
@@ -440,6 +450,7 @@
 				);
 				INFOPLIST_FILE = BugreportViewerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yurybereza.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BugreportViewer.app/Contents/MacOS/BugreportViewer";
 			};

@@ -6,4 +6,10 @@
 //  Copyright © 2015 Yury Bereza. All rights reserved.
 //
 
-#include "parsing_functions.h"
+#import <Foundation/Foundation.h>
+
+#import "parsing_functions.h"
+
+void parseUptime() {
+
+}

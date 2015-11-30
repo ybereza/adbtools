@@ -24,7 +24,7 @@ typedef struct _parsing_state {
 } parsing_state;
 
 parsing_state parsing_states[] = {
-    {"UPTIME (uptime)", parse_uptime, PARSE_UPTIME}
+    {"UPTIME (uptime)", parseUptime, PARSE_UPTIME}
 };
 
 typedef void (^lineBlock)(NSString* lineSubstring);
@@ -44,11 +44,13 @@ typedef void (^lineBlock)(NSString* lineSubstring);
     self = [super init];
     if (self != nil) {
         NSError* error;
-        self.bugreportSectionsRegexp = [NSRegularExpression regularExpressionWithPattern:@"[-]{6}[ ]{1}(.*)[ ]{1}[-]{6}" options:NSRegularExpressionCaseInsensitive error:&error];
+        self.bugreportSectionsRegexp = [NSRegularExpression regularExpressionWithPattern:@"[-]{6}[ ]{1}(.*)[ ]{1}[-]{6}"
+                                                                                 options:NSRegularExpressionCaseInsensitive error:&error];
         if (error != nil) {
             return nil;
         }
-        self.showMapSubsectionRegexp = [NSRegularExpression regularExpressionWithPattern:@"[-]{6}[ ]{1}SHOW MAP.*[ ]{1}[-]{6}" options:NSRegularExpressionCaseInsensitive error:&error];
+        self.showMapSubsectionRegexp = [NSRegularExpression regularExpressionWithPattern:@"[-]{6}[ ]{1}SHOW MAP.*[ ]{1}[-]{6}"
+                                                                                 options:NSRegularExpressionCaseInsensitive error:&error];
         if (error != nil) {
             return nil;
         }
