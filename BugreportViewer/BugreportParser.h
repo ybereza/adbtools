@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^parsingResultHandler)(NSError* error);
+
 @interface BugreportParser : NSObject
 @property NSString* bugreport;
 
 - (instancetype)init;
 - (instancetype)initWithBugreport:(NSString*)bugreport;
 
-- (void)parse;
+- (void)parseWithCompletetionHandler:(parsingResultHandler)handler;
 
 @end

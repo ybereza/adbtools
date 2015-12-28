@@ -183,6 +183,38 @@
     [self showProgressSheet];
 }
 
+- (IBAction)onOpenBugreportClick:(id)sender {
+    NSOpenPanel* panel = [NSOpenPanel openPanel];
+    [panel setAllowsMultipleSelection:NO];
+    [panel setShowsHiddenFiles:YES];
+    
+    [panel beginWithCompletionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSFileHandlingPanelOKButton) {
+            NSArray* urls = [panel URLs];
+            NSError* error;
+            NSString* bugreport = [NSString stringWithContentsOfURL:[urls objectAtIndex:0]
+                                                           encoding:NSUTF8StringEncoding
+                                                              error:&error];
+            if (error != nil) {
+                NSAlert* alert = [NSAlert alertWithError:error];
+                [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+                    
+                }];
+            }
+            else {
+                [self loadBugreport:bugreport];
+            }
+        }
+    }];
+}
+
+- (void)loadBugreport:(NSString*)bugreport {
+    [self showProgressSheet];
+    mParser.bugreport = bugreport;
+    [mParser parseWithCompletetionHandler:^(NSError *error) {
+        [self hideProgressSheet];
+    }];
+}
 
 #pragma mark -
 #pragma mark ADBDelegate
@@ -200,9 +232,8 @@
 - (void)onBugreportReceived:(NSString *)bugreport {
     [self.textView setString:bugreport];
     [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
-    mParser.bugreport = bugreport;
-    [mParser parse];
     [self hideProgressSheet];
+    [self loadBugreport:bugreport];
 }
 
 - (void)onADBError:(NSError*) error {

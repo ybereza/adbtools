@@ -10,31 +10,14 @@
 
 #include "parsing_functions.h"
 
-typedef NS_ENUM(NSInteger, ParsingStage) {
-    DEFAULT,
-    PARSE_UPTIME
-};
-
-typedef void (*parsing_function)();
-
-typedef struct _parsing_state {
-    const char*  group_name;
-    parsing_function parsing_function_ptr;
-    ParsingStage stage;
-} parsing_state;
-
-parsing_state parsing_states[] = {
-    {"UPTIME (uptime)", parseUptime, PARSE_UPTIME}
-};
-
-typedef void (^lineBlock)(NSString* lineSubstring);
-
 @interface BugreportParser()
 
 @property NSRegularExpression* bugreportSectionsRegexp;
 @property NSRegularExpression* showMapSubsectionRegexp;
+@property SEL currentLineParser;
+@property NSDictionary<NSString*, NSValue*> * lineParsers;
 
-- (void)walkThroughLines:(lineBlock)doOnEachLine;
+- (BOOL)walkThroughLines:(SEL)defaultReader;
 
 @end
 
@@ -54,6 +37,11 @@ typedef void (^lineBlock)(NSString* lineSubstring);
         if (error != nil) {
             return nil;
         }
+        
+        _lineParsers = [NSDictionary dictionaryWithObjectsAndKeys:
+                        [NSValue valueWithPointer:@selector(uptime:)], @"UPTIME (uptime)",
+                        [NSValue valueWithPointer:@selector(memoryInfo:)], @"MEMORY INFO (/proc/meminfo)",
+                        [NSValue valueWithPointer:@selector(cpuInfo:)], @"CPU INFO (top -n 1 -d 1 -m 30 -t)", nil];
     }
     return self;
 }
@@ -66,7 +54,7 @@ typedef void (^lineBlock)(NSString* lineSubstring);
     return self;
 }
 
-- (void)walkThroughLines:(lineBlock)doOnEachLine {
+- (BOOL)walkThroughLines:(SEL)defaultReader {
     NSUInteger lineStart = 0;
     NSUInteger lineEnd = 0;
     NSUInteger stringLength = [self.bugreport length];
@@ -83,33 +71,84 @@ typedef void (^lineBlock)(NSString* lineSubstring);
                 (([self.bugreport characterAtIndex:index+1] == lineBreak) || ([self.bugreport characterAtIndex:index+1] == newLine))) {
                 ++index;
             }
+            
             lineEnd = index;
             NSRange lineSubString = NSMakeRange(lineStart, lineEnd - lineStart);
-            doOnEachLine([self.bugreport substringWithRange:lineSubString]);
+            NSString* line = [self.bugreport substringWithRange:lineSubString];
+            if (_currentLineParser == nil) {
+                _currentLineParser = defaultReader;
+            }
+            NSNumber* result = [self performSelector:_currentLineParser withObject:line];
+            if (![result boolValue]) {
+                _currentLineParser = defaultReader;
+                NSNumber* result = [self performSelector:_currentLineParser withObject:line];
+                if (![result boolValue]) {
+                    //NSLog(@"Can not parse string %@", line);
+                }
+            }
             lineStart = lineEnd;
         }
     }
     if (lineStart != stringLength) {
         NSRange lineSubString = NSMakeRange(lineStart, stringLength - lineStart);
-        doOnEachLine([self.bugreport substringWithRange:lineSubString]);
+        NSString* line = [self.bugreport substringWithRange:lineSubString];
+        NSNumber* result = [self performSelector:_currentLineParser withObject:line];
+        if (![result boolValue]) {
+            NSLog(@"Can not parse string %@", line);
+            return NO;
+        }
+        
     }
     NSTimeInterval finish = [date timeIntervalSince1970];
     NSLog(@"Finished parsing in %f", finish - start);
+    return YES;
 }
 
-- (void)parse {
-    __block NSInteger foundSections = 0;
-    [self walkThroughLines:^(NSString *lineSubstring) {
-        NSArray<NSTextCheckingResult*>* matches = [_bugreportSectionsRegexp matchesInString:lineSubstring
-                                                                                    options:0
-                                                                                      range:NSMakeRange(0, [lineSubstring length])];
-        for (NSTextCheckingResult* match in matches) {
-            NSRange sectionRange = [match rangeAtIndex:1];
-            NSLog(@"Group name %@", [lineSubstring substringWithRange:sectionRange]);
-            ++foundSections;
+- (void)parseWithCompletetionHandler:(parsingResultHandler)handler {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL result = [self walkThroughLines:@selector(detectGroup:)];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (result) {
+                handler(nil);
+            }
+            else {
+                handler([NSError errorWithDomain:@"com.bugreport" code:1 userInfo:nil]);
+            }
+        });
+    });
+}
+
+- (BOOL)detectGroup:(NSString*)line {
+    NSArray<NSTextCheckingResult*> * matches = [_bugreportSectionsRegexp matchesInString:line
+                                                                                options:0
+                                                                                  range:NSMakeRange(0, [line length])];
+    for (NSTextCheckingResult* match in matches) {
+        NSRange sectionRange = [match rangeAtIndex:1];
+        NSString* groupName = [line substringWithRange:sectionRange];
+        NSLog(@"Group name %@", groupName);
+        NSValue * nextReader = [_lineParsers objectForKey:groupName];
+        if (nextReader != nil) {
+            _currentLineParser = [nextReader pointerValue];
+            return YES;
         }
-    }];
-    NSLog(@"Found %ld sections", foundSections);
+    }
+    return NO;
+}
+
+- (BOOL)uptime:(NSString*)line {
+    NSLog(@"Found UPTIME section");
+    return NO;
+}
+
+- (BOOL)memoryInfo:(NSString*)line {
+    NSLog(@"Found memory info section");
+    return NO;
+}
+
+
+- (BOOL)cpuInfo:(NSString*)line {
+    NSLog(@"Found cpu info section");
+    return NO;
 }
 
 @end

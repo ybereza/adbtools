@@ -834,7 +834,7 @@
                         <size key="minSize" width="99" height="26"/>
                         <size key="maxSize" width="300" height="26"/>
                         <comboBox key="view" verticalHuggingPriority="750" id="c7z-1J-9YA">
-                            <rect key="frame" x="0.0" y="0.0" width="99" height="26"/>
+                            <rect key="frame" x="0.0" y="14" width="99" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="3zf-rA-300">
                                 <font key="font" metaFont="system"/>
@@ -870,12 +870,15 @@
                         <size key="minSize" width="32" height="32"/>
                         <size key="maxSize" width="44" height="64"/>
                         <button key="view" verticalHuggingPriority="750" id="Bkg-pZ-pIM">
-                            <rect key="frame" x="30" y="14" width="44" height="43"/>
+                            <rect key="frame" x="24" y="14" width="44" height="43"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="push" bezelStyle="rounded" image="folder-icon" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="c1n-Bq-R0P">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="onOpenBugreportClick:" target="bSD-en-s3y" id="31w-E5-QxP"/>
+                            </connections>
                         </button>
                     </toolbarItem>
                 </allowedToolbarItems>
@@ -890,8 +893,7 @@
         </window>
         <viewController id="bSD-en-s3y" userLabel="MainController" customClass="MainWindowController">
             <connections>
-                <outlet property="mDeviceList" destination="c7z-1J-9YA" id="6Cn-Ua-fuo"/>
-                <outlet property="mDeviceListController" destination="uZC-Fc-TWg" id="liu-T5-lOF"/>
+                <outlet property="mDeviceListController" destination="uZC-Fc-TWg" id="8XR-gX-jiY"/>
                 <outlet property="mOutlineView" destination="dsN-SE-EPd" id="Tlo-aR-RGW"/>
                 <outlet property="progressSheet" destination="jgU-qL-DGS" id="fPy-N0-54f"/>
                 <outlet property="refreshButton" destination="SRv-GH-1Ky" id="LXi-dN-bam"/>

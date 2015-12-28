@@ -29,6 +29,7 @@
 
 - (IBAction)createNewWindow:(NSMenuItem *)sender;
 - (IBAction)onRefreshButtonClick:(id)sender;
+- (IBAction)onOpenBugreportClick:(id)sender;
 
 @property (assign) IBOutlet NSToolbarItem* refreshButton;
 @property (assign) IBOutlet NSWindow *window;
