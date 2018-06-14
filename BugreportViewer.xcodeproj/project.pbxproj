@@ -22,6 +22,7 @@
 		D2ABD6531B4883CF00653319 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2ABD6521B4883CF00653319 /* MainMenu.xib */; };
 		D2ABD6561B489EB900653319 /* SidebarTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ABD6551B489EB900653319 /* SidebarTableCellView.m */; };
 		D2ABD6591B49831A00653319 /* ADBController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2ABD6581B49831A00653319 /* ADBController.m */; };
+		D2CDAB1C20D1A8A500418FC0 /* USBObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CDAB1B20D1A8A500418FC0 /* USBObserver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		D2ABD6571B49831A00653319 /* ADBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADBController.h; path = ../adb/ADBController.h; sourceTree = "<group>"; };
 		D2ABD6581B49831A00653319 /* ADBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ADBController.m; path = ../adb/ADBController.m; sourceTree = "<group>"; };
 		D2ABD65B1B498F5300653319 /* ADBDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADBDelegate.h; path = ../adb/ADBDelegate.h; sourceTree = "<group>"; };
+		D2CDAB1A20D1A8A500418FC0 /* USBObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USBObserver.h; sourceTree = "<group>"; };
+		D2CDAB1B20D1A8A500418FC0 /* USBObserver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USBObserver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,7 @@
 		D22C451E1B2F5E8400FABC6D /* BugreportViewer */ = {
 			isa = PBXGroup;
 			children = (
+				D2CDAB1920D1A87800418FC0 /* USB */,
 				A2482D561B54F8D0007BF49A /* DeviceListController.h */,
 				A2482D571B54F8D0007BF49A /* DeviceListController.m */,
 				A29917AD1B578CFC005F8301 /* ADB */,
@@ -177,6 +181,15 @@
 				D22C45371B2F5E8400FABC6D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D2CDAB1920D1A87800418FC0 /* USB */ = {
+			isa = PBXGroup;
+			children = (
+				D2CDAB1A20D1A8A500418FC0 /* USBObserver.h */,
+				D2CDAB1B20D1A8A500418FC0 /* USBObserver.m */,
+			);
+			name = USB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +301,7 @@
 				D2ABD6591B49831A00653319 /* ADBController.m in Sources */,
 				A2498FB81B5E49BD00E2BFC2 /* AProcessList.m in Sources */,
 				D209D2F51C0CD0FC002648E2 /* AUptime.m in Sources */,
+				D2CDAB1C20D1A8A500418FC0 /* USBObserver.m in Sources */,
 				A2482D581B54F8D0007BF49A /* DeviceListController.m in Sources */,
 				A29917AC1B56A34D005F8301 /* ProgressPanel.m in Sources */,
 			);

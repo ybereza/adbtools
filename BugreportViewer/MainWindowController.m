@@ -10,14 +10,25 @@
 #import "SidebarTableCellView.h"
 
 #import "ADBController.h"
+#import "USBObserver.h"
+
+@interface MainWindowController() <USBObservervable>
+
+@property (nonatomic, strong) USBObserver* usbObserver;
+
+@end
 
 @implementation MainWindowController
 
+@synthesize usbObserver = _usbObserver;
+
 - (void)initADBController {
-    
+    //TODO: Replace this hard code with selector
     mADBController = [[ADBController alloc] initWithPathToSDK:@"/Users/y.bereza/android/sdk" andDelegate:self];
     mDeviceListController.deviceChangedDelegate = mADBController;
-    [mADBController getDevicesListAsync];
+    
+    _usbObserver = [[USBObserver alloc] init];
+    _usbObserver.observable = self;
 }
 
 - (void)viewDidLoad {
@@ -134,39 +145,19 @@
                 break;
             }
         }
-        // Setup the unread indicator to show in some cases. Layout is done in SidebarTableCellView's viewWillDraw
-        /*if (index == 0) {
-            // First row in the index
-            hideUnreadIndicator = NO;
-            [result.button setTitle:@"42"];
-            [result.button sizeToFit];
-            // Make it appear as a normal label and not a button
-            [[result.button cell] setHighlightsBy:0];
-        } else if (index == 2) {
-            // Example for a button
-            hideUnreadIndicator = NO;
-            result.button.target = self;
-            result.button.action = @selector(buttonClicked:);
-            [result.button setImage:[NSImage imageNamed:NSImageNameAddTemplate]];
-            // Make it appear as a button
-            [[result.button cell] setHighlightsBy:NSPushInCellMask|NSChangeBackgroundCellMask];
-        }
-        [result.button setHidden:hideUnreadIndicator];*/
         return result;
     }
 }
 
 - (void)showProgressSheet {
-    [NSApp beginSheet: self.progressSheet
-       modalForWindow: self.window
-        modalDelegate: self
-       didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
-          contextInfo: nil];
+    [[self window] beginSheet:self.progressSheet completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
     [self.progressSheet.progressIndicator startAnimation:self];
 }
 
 - (void)hideProgressSheet {
-    [NSApp endSheet:self.progressSheet];
+    [[self window] endSheet:self.progressSheet];
     [self.progressSheet.progressIndicator stopAnimation:self];
 }
 
@@ -212,6 +203,9 @@
     [self showProgressSheet];
     mParser.bugreport = bugreport;
     [mParser parseWithCompletetionHandler:^(NSError *error) {
+        [self.textView setString:bugreport];
+        [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
+        
         [self hideProgressSheet];
     }];
 }
@@ -230,8 +224,6 @@
 }
 
 - (void)onBugreportReceived:(NSString *)bugreport {
-    [self.textView setString:bugreport];
-    [self.textView setFont:[NSFont fontWithName:@"Menlo" size:14]];
     [self hideProgressSheet];
     [self loadBugreport:bugreport];
 }
@@ -239,5 +231,17 @@
 - (void)onADBError:(NSError*) error {
     NSLog(@"onADBError %@", error);
 }
+
+#pragma mark -
+#pragma mark USBObservabled
+
+- (void)onDeviceConnected {
+    [mADBController getDevicesListAsync];
+}
+
+- (void)onDeviceDisconnected {
+    
+}
+
 
 @end

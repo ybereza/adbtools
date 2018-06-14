@@ -315,7 +315,7 @@ static const int kADB_SERVER_VERSION = 32;
     const char* value = [data UTF8String];
     char* p;
     unsigned long version = strtoul(value, &p, 16);
-    return version == adbServerVersion;
+    return version >= adbServerVersion;
 }
 
 - (BOOL)launchADBServer {

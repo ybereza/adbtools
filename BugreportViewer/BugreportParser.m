@@ -27,7 +27,7 @@
     self = [super init];
     if (self != nil) {
         NSError* error;
-        self.bugreportSectionsRegexp = [NSRegularExpression regularExpressionWithPattern:@"[-]{6}[ ]{1}(.*)[ ]{1}[-]{6}"
+        self.bugreportSectionsRegexp = [NSRegularExpression regularExpressionWithPattern:@"[-]{6}[ ]{1}(.*)[ ]{1}[-]{6}$"
                                                                                  options:NSRegularExpressionCaseInsensitive error:&error];
         if (error != nil) {
             return nil;
